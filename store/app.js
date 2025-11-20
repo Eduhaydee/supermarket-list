@@ -4,6 +4,11 @@ const cartTotalEl = document.getElementById("cartTotal");
 const searchInput = document.getElementById("searchInput");
 const clearSearch = document.getElementById("clearSearch");
 const cartCount = document.getElementById("cartCount");
+const cartCountMobileStore = document.getElementById("cartCountMobileStore");
+const cartTotalMobileStore = document.getElementById("cartTotalMobileStore");
+const mobileMenuStore = document.getElementById("mobileMenuStore");
+const mobileMenuButtonStore = document.getElementById("mobileMenuButtonStore");
+const mobileMenuCloseStore = document.getElementById("mobileMenuCloseStore");
 
 const FALLBACK_IMAGE = "../assets/img/image_not_available.png";
 const CART_STORAGE_KEY = "mini-store-cart-v1";
@@ -132,6 +137,12 @@ function updateCartCount() {
   if (!cartCount) return;
   const total = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
   cartCount.textContent = total;
+  if (cartCountMobileStore) cartCountMobileStore.textContent = total;
+  const totalValue = cart.reduce(
+    (sum, item) => sum + (Number(item.paidPrice) || Number(item.unitPrice) || 0) * (Number(item.quantity) || 0),
+    0
+  );
+  if (cartTotalMobileStore) cartTotalMobileStore.textContent = formatCurrency(totalValue);
 }
 
 function applySearch(term) {
@@ -160,6 +171,32 @@ clearSearch.addEventListener("click", () => {
   searchInput.value = "";
   applySearch("");
 });
+
+function openMobileMenuStore() {
+  if (!mobileMenuStore) return;
+  mobileMenuStore.classList.remove("hidden");
+  document.body.classList.add("overflow-hidden");
+}
+
+function closeMobileMenuStore() {
+  if (!mobileMenuStore) return;
+  mobileMenuStore.classList.add("hidden");
+  document.body.classList.remove("overflow-hidden");
+}
+
+if (mobileMenuButtonStore) {
+  mobileMenuButtonStore.addEventListener("click", openMobileMenuStore);
+}
+if (mobileMenuCloseStore) {
+  mobileMenuCloseStore.addEventListener("click", closeMobileMenuStore);
+}
+if (mobileMenuStore) {
+  mobileMenuStore.addEventListener("click", (event) => {
+    if (event.target === mobileMenuStore) {
+      closeMobileMenuStore();
+    }
+  });
+}
 
 try {
   loadProducts();

@@ -8,6 +8,7 @@ const editBanner = document.getElementById("editBanner");
 const editName = document.getElementById("editName");
 const openFormButtons = [
   document.getElementById("openFormHeader"),
+  document.getElementById("openFormMobile"),
 ].filter(Boolean);
 const formModal = document.getElementById("formModal");
 const closeForm = document.getElementById("closeForm");
@@ -21,6 +22,12 @@ const footerTotal = document.getElementById("footerTotal");
 const unitPriceInput = document.getElementById("unitPrice");
 const cartCount = document.getElementById("cartCount");
 const cartTotalHeader = document.getElementById("cartTotalHeader");
+const cartCountMobile = document.getElementById("cartCountMobile");
+const cartTotalMobile = document.getElementById("cartTotalMobile");
+const mobileMenu = document.getElementById("mobileMenu");
+const mobileMenuButton = document.getElementById("mobileMenuButton");
+const mobileMenuClose = document.getElementById("mobileMenuClose");
+const exportBtnMobile = document.getElementById("exportJsonMobile");
 
 const STORAGE_KEY = "shopping-list-items-v1";
 const FALLBACK_IMAGE = "../assets/img/image_not_available.png";
@@ -130,6 +137,7 @@ function updateCartCount() {
       ? parsed.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0)
       : 0;
     cartCount.textContent = totalQty;
+    if (cartCountMobile) cartCountMobile.textContent = totalQty;
     const totalValue = Array.isArray(parsed)
       ? parsed.reduce(
           (sum, item) =>
@@ -138,9 +146,12 @@ function updateCartCount() {
         )
       : 0;
     if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(totalValue);
+    if (cartTotalMobile) cartTotalMobile.textContent = formatCurrency(totalValue);
   } catch (_error) {
     cartCount.textContent = "0";
+    if (cartCountMobile) cartCountMobile.textContent = "0";
     if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(0);
+    if (cartTotalMobile) cartTotalMobile.textContent = formatCurrency(0);
   }
 }
 
@@ -489,6 +500,9 @@ modal.addEventListener("click", (event) => {
 if (exportBtn) {
   exportBtn.addEventListener("click", exportAsJson);
 }
+if (exportBtnMobile) {
+  exportBtnMobile.addEventListener("click", exportAsJson);
+}
 cancelEditSecondary.addEventListener("click", resetEditState);
 unitPriceInput.addEventListener("input", formatPriceField);
 openFormButtons.forEach((btn) =>
@@ -545,3 +559,29 @@ window.addEventListener("storage", (event) => {
     updateCartCount();
   }
 });
+
+function openMobileMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.remove("hidden");
+  document.body.classList.add("overflow-hidden");
+}
+
+function closeMobileMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.add("hidden");
+  document.body.classList.remove("overflow-hidden");
+}
+
+if (mobileMenuButton) {
+  mobileMenuButton.addEventListener("click", openMobileMenu);
+}
+if (mobileMenuClose) {
+  mobileMenuClose.addEventListener("click", closeMobileMenu);
+}
+if (mobileMenu) {
+  mobileMenu.addEventListener("click", (event) => {
+    if (event.target === mobileMenu) {
+      closeMobileMenu();
+    }
+  });
+}
