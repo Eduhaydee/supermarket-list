@@ -6,7 +6,9 @@ const submitBtn = document.getElementById("submitBtn");
 const cancelEditSecondary = document.getElementById("cancelEditSecondary");
 const editBanner = document.getElementById("editBanner");
 const editName = document.getElementById("editName");
-const openFormButtons = [document.getElementById("openForm"), document.getElementById("openFormFooter")];
+const openFormButtons = [
+  document.getElementById("openFormHeader"),
+].filter(Boolean);
 const formModal = document.getElementById("formModal");
 const closeForm = document.getElementById("closeForm");
 const searchInput = document.getElementById("searchInput");
@@ -17,9 +19,12 @@ const modalImage = document.getElementById("modalImage");
 const modalClose = document.getElementById("modalClose");
 const footerTotal = document.getElementById("footerTotal");
 const unitPriceInput = document.getElementById("unitPrice");
+const cartCount = document.getElementById("cartCount");
+const cartTotalHeader = document.getElementById("cartTotalHeader");
 
 const STORAGE_KEY = "shopping-list-items-v1";
-const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80";
+const FALLBACK_IMAGE = "../assets/img/image_not_available.png";
+const CART_STORAGE_KEY = "mini-store-cart-v1";
 const PAGE_SIZE = 12;
 
 let items = [];
@@ -27,11 +32,20 @@ let editingId = null;
 let currentPage = 1;
 let searchTerm = "";
 
+function getImageOrFallback(value) {
+  const parsed = (value || "").toString().trim();
+  return parsed || FALLBACK_IMAGE;
+}
+
 async function loadItems() {
   // carrega o que já existe no navegador
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     items = saved ? JSON.parse(saved) : [];
+    items = items.map((item) => ({
+      ...item,
+      image: getImageOrFallback(item.image),
+    }));
   } catch (error) {
     console.error("Erro ao carregar itens:", error);
     items = [];
@@ -48,10 +62,18 @@ async function loadItems() {
     const merged = [...items];
     seedItems.forEach((item) => {
       if (!existingIds.has(item.id)) {
-        merged.push({ ...item, purchased: item.purchased || false, unavailable: item.unavailable || false });
+        merged.push({
+          ...item,
+          image: getImageOrFallback(item.image),
+          purchased: item.purchased || false,
+          unavailable: item.unavailable || false,
+        });
       }
     });
-    items = merged;
+    items = merged.map((item) => ({
+      ...item,
+      image: getImageOrFallback(item.image),
+    }));
     persistItems();
   } catch (error) {
     console.warn("Não foi possível carregar os itens base do JSON:", error);
@@ -66,7 +88,7 @@ function formatCurrency(value) {
   return Number(value || 0).toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
-    minimumFractionDigits: 2
+    minimumFractionDigits: 2,
   });
 }
 
@@ -75,7 +97,7 @@ function parseCurrencyInput(rawValue) {
   const numeric = digits ? Number(digits) / 100 : 0;
   const display = numeric.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   });
   return { numeric, display };
 }
@@ -96,7 +118,30 @@ function updateTotal() {
     .filter((item) => !item.unavailable)
     .reduce((sum, item) => sum + itemTotal(item), 0);
   totalEl.textContent = formatCurrency(total);
-  footerTotal.textContent = formatCurrency(total);
+  if (footerTotal) footerTotal.textContent = formatCurrency(total);
+}
+
+function updateCartCount() {
+  if (!cartCount) return;
+  try {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    const parsed = stored ? JSON.parse(stored) : [];
+    const totalQty = Array.isArray(parsed)
+      ? parsed.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0)
+      : 0;
+    cartCount.textContent = totalQty;
+    const totalValue = Array.isArray(parsed)
+      ? parsed.reduce(
+          (sum, item) =>
+            sum + (Number(item.paidPrice) || Number(item.unitPrice) || 0) * (Number(item.quantity) || 0),
+          0
+        )
+      : 0;
+    if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(totalValue);
+  } catch (_error) {
+    cartCount.textContent = "0";
+    if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(0);
+  }
 }
 
 function renderEmptyState() {
@@ -109,7 +154,8 @@ function renderEmptyState() {
 
 function statusClasses(item) {
   if (item.unavailable) return "border-red-200 ring ring-red-100 bg-red-50/60";
-  if (item.purchased) return "border-emerald-100 ring ring-emerald-50 bg-emerald-50/60";
+  if (item.purchased)
+    return "border-emerald-100 ring ring-emerald-50 bg-emerald-50/60";
   return "border-slate-100 ring-1 ring-slate-100 bg-white/80";
 }
 
@@ -144,7 +190,9 @@ function renderItems() {
       const purchasedTag = item.purchased
         ? `<span class="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-700">Comprado</span>`
         : "";
-      const brandLine = item.brand ? `<p class="text-sm font-medium text-slate-600">${item.brand}</p>` : "";
+      const brandLine = item.brand
+        ? `<p class="text-sm font-medium text-slate-600">${item.brand}</p>`
+        : "";
       const nameClass = item.unavailable
         ? "line-through text-red-700"
         : item.purchased
@@ -155,8 +203,12 @@ function renderItems() {
         <article class="group flex flex-col gap-4 rounded-2xl border bg-white/70 p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${statusClasses(
           item
         )}" data-id="${item.id}">
-          <button type="button" class="item-image relative h-44 w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-inner transition hover:scale-[1.01] cursor-zoom-in" data-src="${item.image || FALLBACK_IMAGE}">
-            <img src="${item.image || FALLBACK_IMAGE}" alt="Imagem de ${item.name}" class="h-full w-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'">
+          <button type="button" class="item-image relative h-44 w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-inner transition hover:scale-[1.01] cursor-zoom-in" data-src="${
+            item.image || FALLBACK_IMAGE
+          }">
+            <img src="${item.image || FALLBACK_IMAGE}" alt="Imagem de ${
+        item.name
+      }" class="h-full w-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'">
             <span class="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100 group-hover:backdrop-brightness-75"></span>
           </button>
 
@@ -165,12 +217,18 @@ function renderItems() {
               <div class="flex flex-col gap-1">
                 <p class="text-base font-semibold ${nameClass}">${item.name}</p>
                 ${brandLine}
-                <p class="text-xs uppercase tracking-wide text-slate-500">${item.unitType === "kg" ? "Preço por kg" : "Preço por unidade"}</p>
+                <p class="text-xs uppercase tracking-wide text-slate-500">${
+                  item.unitType === "kg" ? "Preço por kg" : "Preço por unidade"
+                }</p>
                 <div class="flex gap-2">${purchasedTag}${unavailableTag}</div>
               </div>
               <div class="flex flex-col gap-2">
-                <button type="button" class="edit-btn rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" data-id="${item.id}">Editar</button>
-                <button type="button" class="delete-btn rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600" data-id="${item.id}">Remover</button>
+                <button type="button" class="edit-btn rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700" data-id="${
+                  item.id
+                }">Editar</button>
+                <button type="button" class="delete-btn rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600" data-id="${
+                  item.id
+                }">Remover</button>
               </div>
             </div>
 
@@ -191,11 +249,15 @@ function renderItems() {
 
             <div class="flex flex-wrap gap-4 text-sm text-slate-700">
               <label class="inline-flex items-center gap-2 rounded-xl bg-white/60 px-3 py-2 shadow-inner ring-1 ring-slate-100">
-                <input type="checkbox" class="purchased-toggle h-4 w-4 accent-emerald-500" data-id="${item.id}" ${item.purchased ? "checked" : ""}>
+                <input type="checkbox" class="purchased-toggle h-4 w-4 accent-emerald-500" data-id="${
+                  item.id
+                }" ${item.purchased ? "checked" : ""}>
                 <span class="font-medium">Comprado</span>
               </label>
               <label class="inline-flex items-center gap-2 rounded-xl bg-white/60 px-3 py-2 shadow-inner ring-1 ring-slate-100">
-                <input type="checkbox" class="unavailable-toggle h-4 w-4 accent-red-500" data-id="${item.id}" ${item.unavailable ? "checked" : ""}>
+                <input type="checkbox" class="unavailable-toggle h-4 w-4 accent-red-500" data-id="${
+                  item.id
+                }" ${item.unavailable ? "checked" : ""}>
                 <span class="font-medium">Indisponível</span>
               </label>
             </div>
@@ -231,7 +293,7 @@ function handleSubmit(event) {
   const formData = new FormData(form);
   const name = (formData.get("itemName") || "").toString().trim();
   const brand = (formData.get("brand") || "").toString().trim();
-  const image = (formData.get("photoUrl") || "").toString().trim();
+  const image = getImageOrFallback(formData.get("photoUrl"));
   const quantity = Number(formData.get("quantity")) || 0;
   const unitPriceRaw = (formData.get("unitPrice") || "").toString();
   const unitPrice = parseCurrencyInput(unitPriceRaw).numeric;
@@ -260,7 +322,7 @@ function handleSubmit(event) {
     unitPrice,
     unitType,
     purchased: false,
-    unavailable: false
+    unavailable: false,
   };
 
   items = [...items, newItem];
@@ -272,7 +334,9 @@ function handleSubmit(event) {
 }
 
 function toggleFlag(id, key, value) {
-  items = items.map((item) => (item.id === id ? { ...item, [key]: value } : item));
+  items = items.map((item) =>
+    item.id === id ? { ...item, [key]: value } : item
+  );
   persistItems();
   renderItems();
 }
@@ -289,9 +353,12 @@ function startEdit(id) {
   editingId = id;
   form.itemName.value = item.name || "";
   form.brand.value = item.brand || "";
-  form.photoUrl.value = item.image || "";
+  form.photoUrl.value =
+    item.image && item.image !== FALLBACK_IMAGE ? item.image : "";
   form.quantity.value = item.quantity ?? "";
-  form.unitPrice.value = item.unitPrice ? `R$ ${formatCurrency(item.unitPrice).replace("R$", "").trim()}` : "";
+  form.unitPrice.value = item.unitPrice
+    ? `R$ ${formatCurrency(item.unitPrice).replace("R$", "").trim()}`
+    : "";
   form.unitType.value = item.unitType || "unidade";
 
   submitBtn.textContent = "Salvar alterações";
@@ -328,11 +395,13 @@ function exportAsJson() {
       unitType: item.unitType,
       purchased: item.purchased,
       unavailable: item.unavailable,
-      total: itemTotal(item)
-    }))
+      total: itemTotal(item),
+    })),
   };
 
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+    type: "application/json",
+  });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
@@ -395,10 +464,17 @@ listContainer.addEventListener("click", (event) => {
     return;
   }
 
-  if (target.classList.contains("item-image") || target.closest(".item-image")) {
-    const imageButton = target.classList.contains("item-image") ? target : target.closest(".item-image");
+  if (
+    target.classList.contains("item-image") ||
+    target.closest(".item-image")
+  ) {
+    const imageButton = target.classList.contains("item-image")
+      ? target
+      : target.closest(".item-image");
     const src = imageButton.dataset.src || FALLBACK_IMAGE;
-    const name = card ? card.querySelector("p.text-base")?.textContent || "produto" : "produto";
+    const name = card
+      ? card.querySelector("p.text-base")?.textContent || "produto"
+      : "produto";
     openModal(src, name);
   }
 });
@@ -410,12 +486,16 @@ modal.addEventListener("click", (event) => {
   }
 });
 
-exportBtn.addEventListener("click", exportAsJson);
+if (exportBtn) {
+  exportBtn.addEventListener("click", exportAsJson);
+}
 cancelEditSecondary.addEventListener("click", resetEditState);
 unitPriceInput.addEventListener("input", formatPriceField);
-openFormButtons.forEach((btn) => btn.addEventListener("click", () => {
-  if (btn) openFormModal();
-}));
+openFormButtons.forEach((btn) =>
+  btn.addEventListener("click", () => {
+    openFormModal();
+  })
+);
 closeForm.addEventListener("click", closeFormModal);
 formModal.addEventListener("click", (event) => {
   if (event.target === formModal) {
@@ -455,15 +535,13 @@ window.addEventListener("keydown", (event) => {
 async function init() {
   await loadItems();
   renderItems();
+  updateCartCount();
 }
 
 init();
 
-
-
-
-
-
-
-
-
+window.addEventListener("storage", (event) => {
+  if (event.key === CART_STORAGE_KEY) {
+    updateCartCount();
+  }
+});

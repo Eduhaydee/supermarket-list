@@ -1,7 +1,7 @@
 {
-  "exportedAt": "2025-11-20T17:15:32.199Z",
+  "exportedAt": "2025-11-20T19:11:47.193Z",
   "currency": "BRL",
-  "total": 2816.8100000000004,
+  "total": 2817.8100000000004,
   "items": [
     {
       "id": "ce7a5486-aac1-4094-8b9f-df2142ff7e57",
@@ -770,6 +770,18 @@
       "purchased": false,
       "unavailable": false,
       "total": 11.48
+    },
+    {
+      "id": "2abd97bb-d101-42b4-9854-7dc077acafe4",
+      "name": "Creme de Avelã - KitKat",
+      "brand": "",
+      "image": "",
+      "quantity": 1,
+      "unitPrice": 1,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 1
     }
   ]
 }
