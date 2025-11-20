@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Loja | Lista de Compras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-white text-slate-900">
+  <main class="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8">
+    <header class="flex flex-col gap-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-500">Mini Loja</p>
+          <h1 class="text-2xl font-semibold text-slate-900">Produtos da lista exportada</h1>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <a href="../index.html" class="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-200">Voltar ao cadastro</a>
+          <a href="./cart.html" class="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-200">Ver carrinho</a>
+          <div class="rounded-full bg-white px-4 py-2 text-sm shadow ring-1 ring-emerald-100">
+            <span class="font-medium text-slate-700">Total do carrinho:</span>
+            <span id="cartTotal" class="font-semibold text-emerald-700">R$ 0,00</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-slate-600">Visual mobile-first. Busque produtos, adicione ao carrinho, ajuste quantidades e informe quanto pagou.</p>
+      <div class="flex gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+        <span aria-hidden="true">🔎</span>
+        <input id="searchInput" type="search" placeholder="Buscar produtos..." class="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400">
+        <button id="clearSearch" class="text-xs font-semibold text-emerald-600">Limpar</button>
+      </div>
+    </header>
+
+    <section class="flex flex-col gap-4">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
+          <div class="mb-3 flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-slate-900">Produtos</h2>
+            <span id="productsCount" class="text-xs font-medium text-slate-500"></span>
+          </div>
+          <div id="productsList" class="grid grid-cols-1 gap-3"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
