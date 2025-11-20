@@ -27,13 +27,34 @@ let editingId = null;
 let currentPage = 1;
 let searchTerm = "";
 
-function loadItems() {
+async function loadItems() {
+  // carrega o que já existe no navegador
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     items = saved ? JSON.parse(saved) : [];
   } catch (error) {
     console.error("Erro ao carregar itens:", error);
     items = [];
+  }
+
+  // tenta complementar com o json base em /store caso não exista algo no storage
+  try {
+    const response = await fetch("./store/lista-compras.json");
+    if (!response.ok) throw new Error("Falha ao buscar JSON base");
+    const data = await response.json();
+    const seedItems = Array.isArray(data.items) ? data.items : [];
+    // evita duplicar por id
+    const existingIds = new Set(items.map((item) => item.id));
+    const merged = [...items];
+    seedItems.forEach((item) => {
+      if (!existingIds.has(item.id)) {
+        merged.push({ ...item, purchased: item.purchased || false, unavailable: item.unavailable || false });
+      }
+    });
+    items = merged;
+    persistItems();
+  } catch (error) {
+    console.warn("Não foi possível carregar os itens base do JSON:", error);
   }
 }
 
@@ -431,8 +452,12 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-loadItems();
-renderItems();
+async function init() {
+  await loadItems();
+  renderItems();
+}
+
+init();
 
 
 
