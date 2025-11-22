@@ -1,7 +1,7 @@
 {
-  "exportedAt": "2025-11-20T19:11:47.193Z",
+  "exportedAt": "2025-11-22T19:46:54.512Z",
   "currency": "BRL",
-  "total": 2817.8100000000004,
+  "total": 3355.6699999999996,
   "items": [
     {
       "id": "ce7a5486-aac1-4094-8b9f-df2142ff7e57",
@@ -23,7 +23,7 @@
       "quantity": 1,
       "unitPrice": 22.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 22.99
     },
@@ -35,7 +35,7 @@
       "quantity": 2,
       "unitPrice": 35.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 71.98
     },
@@ -47,7 +47,7 @@
       "quantity": 1,
       "unitPrice": 39.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 39.99
     },
@@ -59,7 +59,7 @@
       "quantity": 2,
       "unitPrice": 15.09,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 30.18
     },
@@ -71,7 +71,7 @@
       "quantity": 2,
       "unitPrice": 3.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 7.98
     },
@@ -80,12 +80,12 @@
       "name": "Detergente Líquido",
       "brand": "Limpol",
       "image": "https://carrefourbrfood.vtexassets.com/arquivos/ids/198366/181170_1.jpg",
-      "quantity": 6,
+      "quantity": 2,
       "unitPrice": 1.89,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
-      "total": 11.34
+      "total": 3.78
     },
     {
       "id": "8072c0af-8a12-46b6-90fd-1018cdef4175",
@@ -95,7 +95,7 @@
       "quantity": 1,
       "unitPrice": 14.19,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 14.19
     },
@@ -107,7 +107,7 @@
       "quantity": 1,
       "unitPrice": 28.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 28.99
     },
@@ -119,7 +119,7 @@
       "quantity": 6,
       "unitPrice": 34.49,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 206.94
     },
@@ -131,7 +131,7 @@
       "quantity": 2,
       "unitPrice": 11.49,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 22.98
     },
@@ -149,7 +149,7 @@
     },
     {
       "id": "ad655c0d-14f8-4a23-82c8-dd164cda3e02",
-      "name": "Not Milk Chocolate Leite Vegetal 1 L",
+      "name": "A tal da castanha - Choconut",
       "brand": "NotCo",
       "image": "https://carrefourbrfood.vtexassets.com/arquivos/ids/78512914/not-milk-chocolate-leite-vegetal-1-l-1.jpg",
       "quantity": 4,
@@ -311,7 +311,7 @@
       "quantity": 2,
       "unitPrice": 5.99,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 11.98
     },
@@ -509,15 +509,15 @@
     },
     {
       "id": "ffcf3e4c-3cc9-47d9-9b79-a75cf04e0df2",
-      "name": "Huggies Lenços Umedecidos",
-      "brand": "Huggies",
+      "name": "Lenços Umedecidos",
+      "brand": "Pampers",
       "image": "https://m.media-amazon.com/images/I/61FuGNNEaVL.jpg",
       "quantity": 2,
-      "unitPrice": 9.99,
+      "unitPrice": 21.89,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
-      "total": 19.98
+      "total": 43.78
     },
     {
       "id": "9a7a5122-025d-4400-94a6-8ba47ad5866a",
@@ -527,7 +527,7 @@
       "quantity": 5,
       "unitPrice": 3.89,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 19.45
     },
@@ -539,7 +539,7 @@
       "quantity": 2,
       "unitPrice": 17.79,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 35.58
     },
@@ -551,7 +551,7 @@
       "quantity": 5,
       "unitPrice": 3.89,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 19.45
     },
@@ -563,7 +563,7 @@
       "quantity": 1,
       "unitPrice": 35.9,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 35.9
     },
@@ -575,7 +575,7 @@
       "quantity": 1,
       "unitPrice": 26.29,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 26.29
     },
@@ -659,7 +659,7 @@
       "quantity": 3,
       "unitPrice": 6.8,
       "unitType": "unidade",
-      "purchased": false,
+      "purchased": true,
       "unavailable": false,
       "total": 20.4
     },
@@ -739,7 +739,7 @@
       "id": "8aaada13-d9dc-456e-9664-25be15ce8869",
       "name": "Churu",
       "brand": "",
-      "image": "",
+      "image": "../assets/img/image_not_available.png",
       "quantity": 6,
       "unitPrice": 18.9,
       "unitType": "unidade",
@@ -775,13 +775,205 @@
       "id": "2abd97bb-d101-42b4-9854-7dc077acafe4",
       "name": "Creme de Avelã - KitKat",
       "brand": "",
-      "image": "",
+      "image": "../assets/img/image_not_available.png",
       "quantity": 1,
       "unitPrice": 1,
       "unitType": "unidade",
       "purchased": false,
       "unavailable": false,
       "total": 1
+    },
+    {
+      "id": "c6d23f96-3ff5-4188-a469-28c4b298e869",
+      "name": "Mascarpone",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 40,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 40
+    },
+    {
+      "id": "144dd834-2f6c-421d-aefc-3688eb593ce1",
+      "name": "Secante Lava Louças",
+      "brand": "Finish",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 2,
+      "unitPrice": 19.89,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 39.78
+    },
+    {
+      "id": "7b4afedf-92bc-4e17-b7ce-c3fb2df33943",
+      "name": "Detergente para lava louças",
+      "brand": "Finish",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 4,
+      "unitPrice": 32,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 128
+    },
+    {
+      "id": "539bdb94-54c9-4295-b1b9-b2ff11f8845e",
+      "name": "Limpador Cif Cremoso",
+      "brand": "Cif",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 25.99,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 25.99
+    },
+    {
+      "id": "fea3f8ac-8ff9-45b9-9f1b-e235426d00dc",
+      "name": "Doritos",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 24.99,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 24.99
+    },
+    {
+      "id": "ed4ba784-b312-4556-992e-10ebebf5b06e",
+      "name": "Snacks Crocantissimo",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 4,
+      "unitPrice": 3.49,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 13.96
+    },
+    {
+      "id": "401c0e92-dd5f-43e6-b0b9-797ab7082a1c",
+      "name": "Biscoito Tostines Especiarias",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 3,
+      "unitPrice": 1,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 3
+    },
+    {
+      "id": "89998cf0-0822-4fb2-9bb9-cfdb3c60cb07",
+      "name": "Bebida Láctea Nescafe",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 3,
+      "unitPrice": 4.99,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 14.97
+    },
+    {
+      "id": "5a2029d7-9125-4ef9-ac22-782f7c96f240",
+      "name": "Mussarela de Búfala",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 25,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 25
+    },
+    {
+      "id": "0f2b7123-b843-4d36-99d9-be434f0b65bd",
+      "name": "Macarrão MCheese",
+      "brand": "Seara",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 2,
+      "unitPrice": 6.99,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 13.98
+    },
+    {
+      "id": "863b5deb-0918-438e-9f0c-8a4d0825a9b4",
+      "name": "Salgadinho Fandangos",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 9.99,
+      "unitType": "unidade",
+      "purchased": true,
+      "unavailable": false,
+      "total": 9.99
+    },
+    {
+      "id": "b3967e2b-c006-4088-bea9-1574c8052fea",
+      "name": "Água com gás",
+      "brand": "Crystal",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 6,
+      "unitPrice": 1,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 6
+    },
+    {
+      "id": "c0d0c4f8-7762-48df-b90a-7a7f92e993fc",
+      "name": "Carne Bovina - Maturatta",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 85,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 85
+    },
+    {
+      "id": "ea657c46-c8a7-4293-afba-1c918cb34bdf",
+      "name": "Caixa de bombom",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 1,
+      "unitPrice": 9.99,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 9.99
+    },
+    {
+      "id": "384f0a25-98c4-4408-afb4-3441d0c83a22",
+      "name": "Chocolate tamanho família - Amaro e diamante negro",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 2,
+      "unitPrice": 18,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 36
+    },
+    {
+      "id": "9297120e-de8b-49eb-8f4c-5fea87e6dc97",
+      "name": "Chocolate amargo Hearhs - menta, laranja, cramberry ou cafe",
+      "brand": "",
+      "image": "../assets/img/image_not_available.png",
+      "quantity": 3,
+      "unitPrice": 14.99,
+      "unitType": "unidade",
+      "purchased": false,
+      "unavailable": false,
+      "total": 44.97
     }
   ]
 }
